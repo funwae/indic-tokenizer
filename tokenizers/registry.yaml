@@ -14,6 +14,11 @@ tokenizers:
     model_path: "models/gpe_hi_v0"
     display_name: "GPE-Hi v0 (grapheme-BPE)"
 
+  - id: gpe_cbpe_hi_v1
+    type: custom_gpe
+    model_path: "models/gpe_cbpe_hi_v1"
+    display_name: "GPE+CBPE Hindi v1 (research-grade)"
+
   - id: sp_hi_baseline
     type: sentencepiece
     model_path: "models/sp_hi_baseline"

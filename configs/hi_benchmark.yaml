@@ -1,0 +1,42 @@
+# Hindi Benchmark Configuration
+# Comprehensive benchmark for GPE+CBPE tokenizer evaluation
+
+# Language code
+lang: hi
+
+# Baseline tokenizer for NSL (Normalized Sequence Length) computation
+baseline_tokenizer_id: mbert
+
+# Tokenizers to evaluate
+tokenizers:
+  - gpe_cbpe_hi_v1
+  - indicbert
+  - mbert
+
+# Corpora to evaluate on
+corpora:
+  - data/hindi/demo/news_small.txt
+  - data/hindi/demo/mixed_small.txt
+  - data/hindi/eval_sets/news_headlines.txt
+
+# Output directory
+output_dir: scorecards/hi_benchmark
+
+# Phase 1 metrics enabled (all efficiency + script metrics)
+metrics:
+  efficiency:
+    - fertility
+    - chars_per_token
+    - compression_ratio_chars
+    - compression_ratio_graphemes
+    - normalized_sequence_length
+    - proportion_continued_words
+    - unk_rate
+  script:
+    - grapheme_violation_rate
+    - akshara_integrity_rate
+    - dependent_vowel_split_rate
+    - grapheme_aligned_token_rate
+    - devanagari_token_share
+    - mixed_script_token_share
+

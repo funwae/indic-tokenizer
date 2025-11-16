@@ -1,0 +1,32 @@
+[
+  {
+    "text": "भारत में आज कई महत्वपूर्ण घटनाएं हुईं।",
+    "num_tokens": 19,
+    "fertility": 2.7142857142857144,
+    "chars_per_token": 2.0,
+    "compression_ratio_chars": 2.0,
+    "grapheme_violation_rate": 0.0,
+    "akshara_integrity_rate": 1.0,
+    "dependent_vowel_split_rate": 0.0
+  },
+  {
+    "text": "राजधानी दिल्ली में मौसम सुहावना है।",
+    "num_tokens": 18,
+    "fertility": 3.0,
+    "chars_per_token": 1.9444444444444444,
+    "compression_ratio_chars": 1.9444444444444444,
+    "grapheme_violation_rate": 0.0,
+    "akshara_integrity_rate": 1.0,
+    "dependent_vowel_split_rate": 0.0
+  },
+  {
+    "text": "नई दिल्ली में आज एक बड़ी बैठक हुई।",
+    "num_tokens": 17,
+    "fertility": 2.125,
+    "chars_per_token": 2.0,
+    "compression_ratio_chars": 2.0,
+    "grapheme_violation_rate": 0.0,
+    "akshara_integrity_rate": 1.0,
+    "dependent_vowel_split_rate": 0.0
+  }
+]

@@ -28,16 +28,27 @@ from typing import Any, Dict, List, Optional
 import yaml  # pip install pyyaml
 
 # Import transformers BEFORE our tokenizers package to avoid naming conflict
-# This must happen before any imports from our local tokenizers package
+# Strategy: Temporarily remove our project from path, import transformers, then add it back
+project_root = Path(__file__).parent.parent
+project_root_str = str(project_root)
+
+# Remove our project from path temporarily
+was_in_path = project_root_str in sys.path
+if was_in_path:
+    sys.path.remove(project_root_str)
+
 try:
     from transformers import AutoTokenizer  # pip install transformers
 except ImportError as e:
     AutoTokenizer = None  # type: ignore
+finally:
+    # Add project root back to path
+    if was_in_path or project_root_str not in sys.path:
+        sys.path.insert(0, project_root_str)
 
-try:
-    from tokenizers.gpe_tokenizer import GPETokenizer
-except ImportError:
-    GPETokenizer = None  # type: ignore
+# Lazy import GPETokenizer to avoid naming conflicts with HuggingFace tokenizers
+# We'll import it when needed in create_tokenizer_from_config
+GPETokenizer = None  # Will be imported lazily
 
 try:
     from tokenizers.sentencepiece_tokenizer import SentencePieceTokenizer
@@ -230,11 +241,23 @@ def create_tokenizer_from_config(cfg: Dict[str, Any]) -> BaseTokenizer:
             display_name=display_name,
         )
     elif ttype == "custom_gpe":
+        # Lazy import to avoid naming conflicts with HuggingFace tokenizers library
+        global GPETokenizer
         if GPETokenizer is None:
-            raise RuntimeError(
-                "GPETokenizer is not available. "
-                "Make sure tokenizers.gpe_tokenizer can be imported."
-            )
+            try:
+                # Import using sys.path manipulation to ensure our tokenizers package is found
+                # First ensure project root is in path
+                if str(project_root) not in sys.path:
+                    sys.path.insert(0, str(project_root))
+                
+                # Now import - this should work since project_root is in path
+                from tokenizers.gpe_tokenizer import GPETokenizer as GPE
+                GPETokenizer = GPE
+            except Exception as e:
+                raise RuntimeError(
+                    f"GPETokenizer is not available. "
+                    f"Error loading tokenizers.gpe_tokenizer: {e}"
+                )
         model_path = cfg["model_path"]
         return GPETokenizer(
             tokenizer_id=tid,

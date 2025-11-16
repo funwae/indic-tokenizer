@@ -25,9 +25,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 from typing import Dict, Iterable, List, Tuple
+
+# Add project root to path to import our tokenizers package
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
 
 from tokenizers.grapheme_segmenter import segment_devanagari_graphemes
 from tokenizers.cbpe_constraints import cbpe_merge_allowed
