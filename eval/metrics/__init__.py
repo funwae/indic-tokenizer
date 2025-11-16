@@ -20,7 +20,12 @@ from eval.metrics.fairness import (
     tokenization_premium,
     compression_ratio_disparity,
 )
-from eval.metrics.morphology import MorphologyMetrics  # Phase 2 stub
+from eval.metrics.morphology import (
+    MorphologyMetrics,
+    evaluate_morphology,
+    boundary_precision_recall_f1,
+    morpheme_aligned_token_rate,
+)
 
 
 __all__ = [
@@ -31,9 +36,12 @@ __all__ = [
     "MorphologyMetrics",
     "evaluate_comprehensive",
     "evaluate_fairness",
+    "evaluate_morphology",
     "tokenization_parity",
     "tokenization_premium",
     "compression_ratio_disparity",
+    "boundary_precision_recall_f1",
+    "morpheme_aligned_token_rate",
 ]
 
 

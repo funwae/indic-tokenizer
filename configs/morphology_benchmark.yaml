@@ -1,0 +1,22 @@
+# Morphology Benchmark Configuration
+# Morphology-aware tokenization evaluation
+
+# Morphology-annotated dataset
+dataset: data/hindi/morphology/annotated.txt
+
+# Tokenizers to evaluate
+tokenizers:
+  - gpe_cbpe_hi_v1
+  - indicbert
+  - mbert
+
+# Output directory
+output_dir: scorecards/morphology_benchmark
+
+# Metrics to compute
+metrics:
+  - boundary_precision
+  - boundary_recall
+  - boundary_f1
+  - morpheme_aligned_token_rate
+

@@ -279,6 +279,30 @@ def create_tokenizer_from_config(cfg: Dict[str, Any]) -> BaseTokenizer:
             model_path=model_path,
             display_name=display_name,
         )
+    elif ttype == "llama":
+        # Lazy import to avoid naming conflicts
+        global LlamaTokenizer
+        if LlamaTokenizer is None:
+            try:
+                # Import using sys.path manipulation to ensure our tokenizers package is found
+                if str(project_root) not in sys.path:
+                    sys.path.insert(0, str(project_root))
+                
+                from tokenizers.llama_tokenizer import LlamaTokenizer as Llama
+                LlamaTokenizer = Llama
+            except Exception as e:
+                raise RuntimeError(
+                    f"LlamaTokenizer is not available. "
+                    f"Error loading tokenizers.llama_tokenizer: {e}"
+                )
+        model_name = cfg["model_name"]
+        token = cfg.get("token") or os.environ.get("HUGGING_FACE_HUB_TOKEN") or os.environ.get("HF_TOKEN")
+        return LlamaTokenizer(
+            tokenizer_id=tid,
+            model_name=model_name,
+            display_name=display_name,
+            token=token,
+        )
     else:
         raise ValueError(f"Unknown tokenizer type '{ttype}' for id '{tid}'")
 
