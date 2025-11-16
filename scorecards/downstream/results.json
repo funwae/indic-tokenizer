@@ -1,0 +1,7 @@
+{
+  "gpe_cbpe_hi_v1": {
+    "perplexity": 15.5,
+    "model_dir": "models/downstream/gpe_cbpe_hi_v1",
+    "note": "Placeholder implementation - actual perplexity requires trained models"
+  }
+}
