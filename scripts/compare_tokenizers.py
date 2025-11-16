@@ -19,6 +19,7 @@ Usage examples:
 
 import argparse
 import json
+import os
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -26,6 +27,8 @@ from typing import Any, Dict, List, Optional
 
 import yaml  # pip install pyyaml
 
+# Import transformers BEFORE our tokenizers package to avoid naming conflict
+# This must happen before any imports from our local tokenizers package
 try:
     from transformers import AutoTokenizer  # pip install transformers
 except ImportError as e:
@@ -89,9 +92,16 @@ class HFTokenizer(BaseTokenizer):
     HuggingFace tokenizer adapter.
 
     Uses transformers.AutoTokenizer under the hood.
+    Supports HuggingFace authentication via token or login.
     """
 
-    def __init__(self, tokenizer_id: str, model_name: str, display_name: Optional[str] = None):
+    def __init__(
+        self,
+        tokenizer_id: str,
+        model_name: str,
+        display_name: Optional[str] = None,
+        token: Optional[str] = None,
+    ):
         super().__init__(tokenizer_id, display_name)
         if AutoTokenizer is None:
             raise RuntimeError(
@@ -99,7 +109,20 @@ class HFTokenizer(BaseTokenizer):
                 "Install with: pip install transformers"
             )
         self._model_name = model_name
-        self._tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+        # Get token from parameter, environment variable, or HuggingFace cache
+        hf_token = token or os.environ.get("HUGGING_FACE_HUB_TOKEN") or os.environ.get("HF_TOKEN")
+
+        # Load tokenizer with authentication if token is available
+        # Note: Only use 'token' parameter (use_auth_token is deprecated)
+        if hf_token:
+            self._tokenizer = AutoTokenizer.from_pretrained(
+                model_name,
+                token=hf_token,
+            )
+        else:
+            # Will use cached token from huggingface-cli login if available
+            self._tokenizer = AutoTokenizer.from_pretrained(model_name)
 
     def tokenize(self, text: str) -> List[str]:
         # Using the fast tokenizer's tokenize method
@@ -191,10 +214,13 @@ def create_tokenizer_from_config(cfg: Dict[str, Any]) -> BaseTokenizer:
 
     if ttype == "hf":
         model_name = cfg["model_name"]
+        # Support token from config or environment
+        token = cfg.get("token") or os.environ.get("HUGGING_FACE_HUB_TOKEN") or os.environ.get("HF_TOKEN")
         return HFTokenizer(
             tokenizer_id=tid,
             model_name=model_name,
             display_name=display_name,
+            token=token,
         )
     elif ttype == "openai":
         model = cfg["model"]

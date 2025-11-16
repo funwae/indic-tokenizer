@@ -51,7 +51,14 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Optional: Set up HuggingFace authentication (for gated models like ai4bharat/indic-bert)
+pip install huggingface_hub
+python scripts/setup_hf_auth.py
+# Or manually: huggingface-cli login
 ```
+
+**Note:** Some models (like `ai4bharat/indic-bert`) are gated and require authentication. See `docs/HUGGINGFACE_AUTH.md` for setup instructions.
 
 ### Basic Usage
 
