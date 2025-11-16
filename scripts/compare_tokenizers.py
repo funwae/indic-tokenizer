@@ -55,6 +55,9 @@ try:
 except ImportError:
     SentencePieceTokenizer = None  # type: ignore
 
+# Lazy import LlamaTokenizer to avoid naming conflicts
+LlamaTokenizer = None  # Will be imported lazily
+
 # ---------------------------------------------------------------------------
 # Core tokenizer abstraction
 # ---------------------------------------------------------------------------

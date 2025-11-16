@@ -1,0 +1,240 @@
+{
+  "gpt4o": {
+    "average_tokenization_premium": 1.4231709956709957,
+    "average_tokenization_parity": 1.4231709956709957,
+    "average_compression_ratio_disparity": 1.8669042069042079,
+    "average_hindi_cr": 3.5325835275835273,
+    "average_english_cr": 5.399487734487735,
+    "sentence_results": [
+      {
+        "hindi_text": "भारत में आज कई महत्वपूर्ण घटनाएं हुईं।",
+        "english_text": "Many important events happened in India today.",
+        "hindi_tokens": 10,
+        "english_tokens": 8,
+        "tokenization_premium": 1.25,
+        "tokenization_parity": 1.25,
+        "compression_ratio_disparity": 1.9500000000000002,
+        "hindi_cr": 3.8,
+        "english_cr": 5.75
+      },
+      {
+        "hindi_text": "राजधानी दिल्ली में मौसम सुहावना है।",
+        "english_text": "The weather is pleasant in the capital Delhi.",
+        "hindi_tokens": 11,
+        "english_tokens": 9,
+        "tokenization_premium": 1.2222222222222223,
+        "tokenization_parity": 1.2222222222222223,
+        "compression_ratio_disparity": 1.8181818181818183,
+        "hindi_cr": 3.1818181818181817,
+        "english_cr": 5.0
+      },
+      {
+        "hindi_text": "नई दिल्ली में आज एक बड़ी बैठक हुई।",
+        "english_text": "A big meeting took place in New Delhi today.",
+        "hindi_tokens": 9,
+        "english_tokens": 10,
+        "tokenization_premium": 0.9,
+        "tokenization_parity": 0.9,
+        "compression_ratio_disparity": 0.6222222222222227,
+        "hindi_cr": 3.7777777777777777,
+        "english_cr": 4.4
+      },
+      {
+        "hindi_text": "शिक्षा प्रणाली में सुधार की आवश्यकता है।",
+        "english_text": "There is a need for improvement in the education system.",
+        "hindi_tokens": 10,
+        "english_tokens": 11,
+        "tokenization_premium": 0.9090909090909091,
+        "tokenization_parity": 0.9090909090909091,
+        "compression_ratio_disparity": 1.0909090909090908,
+        "hindi_cr": 4.0,
+        "english_cr": 5.090909090909091
+      },
+      {
+        "hindi_text": "विज्ञान और प्रौद्योगिकी के क्षेत्र में प्रगति हो रही है।",
+        "english_text": "Progress is being made in the field of science and technology.",
+        "hindi_tokens": 18,
+        "english_tokens": 12,
+        "tokenization_premium": 1.5,
+        "tokenization_parity": 1.5,
+        "compression_ratio_disparity": 2.055555555555556,
+        "hindi_cr": 3.111111111111111,
+        "english_cr": 5.166666666666667
+      },
+      {
+        "hindi_text": "खेलों में भारत ने अच्छा प्रदर्शन किया।",
+        "english_text": "India performed well in sports.",
+        "hindi_tokens": 10,
+        "english_tokens": 6,
+        "tokenization_premium": 1.6666666666666667,
+        "tokenization_parity": 1.6666666666666667,
+        "compression_ratio_disparity": 1.3666666666666671,
+        "hindi_cr": 3.8,
+        "english_cr": 5.166666666666667
+      },
+      {
+        "hindi_text": "स्वास्थ्य सेवाओं में सुधार हो रहा है।",
+        "english_text": "Health services are improving.",
+        "hindi_tokens": 10,
+        "english_tokens": 5,
+        "tokenization_premium": 2.0,
+        "tokenization_parity": 2.0,
+        "compression_ratio_disparity": 2.3,
+        "hindi_cr": 3.7,
+        "english_cr": 6.0
+      },
+      {
+        "hindi_text": "अर्थव्यवस्था में वृद्धि देखी जा रही है।",
+        "english_text": "Growth is being seen in the economy.",
+        "hindi_tokens": 13,
+        "english_tokens": 8,
+        "tokenization_premium": 1.625,
+        "tokenization_parity": 1.625,
+        "compression_ratio_disparity": 1.5,
+        "hindi_cr": 3.0,
+        "english_cr": 4.5
+      },
+      {
+        "hindi_text": "संस्कृति और परंपराओं का संरक्षण महत्वपूर्ण है।",
+        "english_text": "Preservation of culture and traditions is important.",
+        "hindi_tokens": 13,
+        "english_tokens": 9,
+        "tokenization_premium": 1.4444444444444444,
+        "tokenization_parity": 1.4444444444444444,
+        "compression_ratio_disparity": 2.2393162393162394,
+        "hindi_cr": 3.5384615384615383,
+        "english_cr": 5.777777777777778
+      },
+      {
+        "hindi_text": "युवाओं के लिए रोजगार के अवसर बढ़ रहे हैं।",
+        "english_text": "Employment opportunities for youth are increasing.",
+        "hindi_tokens": 12,
+        "english_tokens": 7,
+        "tokenization_premium": 1.7142857142857142,
+        "tokenization_parity": 1.7142857142857142,
+        "compression_ratio_disparity": 3.7261904761904767,
+        "hindi_cr": 3.4166666666666665,
+        "english_cr": 7.142857142857143
+      }
+    ]
+  },
+  "gpt4o_mini": {
+    "average_tokenization_premium": 1.4231709956709957,
+    "average_tokenization_parity": 1.4231709956709957,
+    "average_compression_ratio_disparity": 1.8669042069042079,
+    "average_hindi_cr": 3.5325835275835273,
+    "average_english_cr": 5.399487734487735,
+    "sentence_results": [
+      {
+        "hindi_text": "भारत में आज कई महत्वपूर्ण घटनाएं हुईं।",
+        "english_text": "Many important events happened in India today.",
+        "hindi_tokens": 10,
+        "english_tokens": 8,
+        "tokenization_premium": 1.25,
+        "tokenization_parity": 1.25,
+        "compression_ratio_disparity": 1.9500000000000002,
+        "hindi_cr": 3.8,
+        "english_cr": 5.75
+      },
+      {
+        "hindi_text": "राजधानी दिल्ली में मौसम सुहावना है।",
+        "english_text": "The weather is pleasant in the capital Delhi.",
+        "hindi_tokens": 11,
+        "english_tokens": 9,
+        "tokenization_premium": 1.2222222222222223,
+        "tokenization_parity": 1.2222222222222223,
+        "compression_ratio_disparity": 1.8181818181818183,
+        "hindi_cr": 3.1818181818181817,
+        "english_cr": 5.0
+      },
+      {
+        "hindi_text": "नई दिल्ली में आज एक बड़ी बैठक हुई।",
+        "english_text": "A big meeting took place in New Delhi today.",
+        "hindi_tokens": 9,
+        "english_tokens": 10,
+        "tokenization_premium": 0.9,
+        "tokenization_parity": 0.9,
+        "compression_ratio_disparity": 0.6222222222222227,
+        "hindi_cr": 3.7777777777777777,
+        "english_cr": 4.4
+      },
+      {
+        "hindi_text": "शिक्षा प्रणाली में सुधार की आवश्यकता है।",
+        "english_text": "There is a need for improvement in the education system.",
+        "hindi_tokens": 10,
+        "english_tokens": 11,
+        "tokenization_premium": 0.9090909090909091,
+        "tokenization_parity": 0.9090909090909091,
+        "compression_ratio_disparity": 1.0909090909090908,
+        "hindi_cr": 4.0,
+        "english_cr": 5.090909090909091
+      },
+      {
+        "hindi_text": "विज्ञान और प्रौद्योगिकी के क्षेत्र में प्रगति हो रही है।",
+        "english_text": "Progress is being made in the field of science and technology.",
+        "hindi_tokens": 18,
+        "english_tokens": 12,
+        "tokenization_premium": 1.5,
+        "tokenization_parity": 1.5,
+        "compression_ratio_disparity": 2.055555555555556,
+        "hindi_cr": 3.111111111111111,
+        "english_cr": 5.166666666666667
+      },
+      {
+        "hindi_text": "खेलों में भारत ने अच्छा प्रदर्शन किया।",
+        "english_text": "India performed well in sports.",
+        "hindi_tokens": 10,
+        "english_tokens": 6,
+        "tokenization_premium": 1.6666666666666667,
+        "tokenization_parity": 1.6666666666666667,
+        "compression_ratio_disparity": 1.3666666666666671,
+        "hindi_cr": 3.8,
+        "english_cr": 5.166666666666667
+      },
+      {
+        "hindi_text": "स्वास्थ्य सेवाओं में सुधार हो रहा है।",
+        "english_text": "Health services are improving.",
+        "hindi_tokens": 10,
+        "english_tokens": 5,
+        "tokenization_premium": 2.0,
+        "tokenization_parity": 2.0,
+        "compression_ratio_disparity": 2.3,
+        "hindi_cr": 3.7,
+        "english_cr": 6.0
+      },
+      {
+        "hindi_text": "अर्थव्यवस्था में वृद्धि देखी जा रही है।",
+        "english_text": "Growth is being seen in the economy.",
+        "hindi_tokens": 13,
+        "english_tokens": 8,
+        "tokenization_premium": 1.625,
+        "tokenization_parity": 1.625,
+        "compression_ratio_disparity": 1.5,
+        "hindi_cr": 3.0,
+        "english_cr": 4.5
+      },
+      {
+        "hindi_text": "संस्कृति और परंपराओं का संरक्षण महत्वपूर्ण है।",
+        "english_text": "Preservation of culture and traditions is important.",
+        "hindi_tokens": 13,
+        "english_tokens": 9,
+        "tokenization_premium": 1.4444444444444444,
+        "tokenization_parity": 1.4444444444444444,
+        "compression_ratio_disparity": 2.2393162393162394,
+        "hindi_cr": 3.5384615384615383,
+        "english_cr": 5.777777777777778
+      },
+      {
+        "hindi_text": "युवाओं के लिए रोजगार के अवसर बढ़ रहे हैं।",
+        "english_text": "Employment opportunities for youth are increasing.",
+        "hindi_tokens": 12,
+        "english_tokens": 7,
+        "tokenization_premium": 1.7142857142857142,
+        "tokenization_parity": 1.7142857142857142,
+        "compression_ratio_disparity": 3.7261904761904767,
+        "hindi_cr": 3.4166666666666665,
+        "english_cr": 7.142857142857143
+      }
+    ]
+  }
+}

@@ -34,3 +34,8 @@ tokenizers:
     model: "gpt-4o-mini"
     display_name: "OpenAI GPT-4o-mini"
 
+  - id: llama3_8b
+    type: llama
+    model_name: "meta-llama/Llama-3.1-8B-Instruct"
+    display_name: "Llama 3.1 8B"
+

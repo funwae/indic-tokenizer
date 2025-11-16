@@ -1,0 +1,21 @@
+# Fairness Benchmark Configuration
+# Cross-language tokenization fairness evaluation
+
+# Parallel corpus
+parallel_corpus: data/parallel/hi_en.txt
+
+# Tokenizers to evaluate
+tokenizers:
+  - gpt4o
+  - gpt4o_mini
+  - llama3_8b  # Requires HF authentication
+
+# Output directory
+output_dir: scorecards/fairness_benchmark
+
+# Metrics to compute
+metrics:
+  - tokenization_premium
+  - tokenization_parity
+  - compression_ratio_disparity
+
