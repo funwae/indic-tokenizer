@@ -24,3 +24,13 @@ tokenizers:
     model_path: "models/sp_hi_baseline"
     display_name: "SentencePiece Hi Baseline (BPE)"
 
+  - id: gpt4o
+    type: openai
+    model: "gpt-4o"
+    display_name: "OpenAI GPT-4o"
+
+  - id: gpt4o_mini
+    type: openai
+    model: "gpt-4o-mini"
+    display_name: "OpenAI GPT-4o-mini"
+

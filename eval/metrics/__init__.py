@@ -13,7 +13,13 @@ from typing import List, Optional
 
 from eval.metrics.efficiency import EfficiencyMetrics, evaluate_efficiency
 from eval.metrics.script import ScriptMetrics, evaluate_script
-from eval.metrics.fairness import FairnessMetrics  # Phase 2 stub
+from eval.metrics.fairness import (
+    FairnessMetrics,
+    evaluate_fairness,
+    tokenization_parity,
+    tokenization_premium,
+    compression_ratio_disparity,
+)
 from eval.metrics.morphology import MorphologyMetrics  # Phase 2 stub
 
 
@@ -24,6 +30,10 @@ __all__ = [
     "FairnessMetrics",
     "MorphologyMetrics",
     "evaluate_comprehensive",
+    "evaluate_fairness",
+    "tokenization_parity",
+    "tokenization_premium",
+    "compression_ratio_disparity",
 ]
 
 
