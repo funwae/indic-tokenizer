@@ -10,9 +10,9 @@ baseline_tokenizer_id: null
 
 # Tokenizers to evaluate
 # Note: gpe_hi_v0 requires training first (see scripts/train_gpe_tokenizer.py)
-# mbert requires transformers library and may have import conflicts
 tokenizers:
-  - gpe_hi_v0
+  - indicbert
+  - mbert
 
 # Corpora to evaluate on
 corpora:

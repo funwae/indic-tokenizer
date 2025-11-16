@@ -28,6 +28,13 @@ from typing import Dict, List, Optional
 
 import yaml
 
+# Import transformers BEFORE our tokenizers package to avoid naming conflict
+# This must happen before any imports from our local tokenizers package
+try:
+    from transformers import AutoTokenizer  # noqa: F401
+except ImportError:
+    pass  # Will be handled later
+
 # Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
