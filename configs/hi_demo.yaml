@@ -1,0 +1,42 @@
+# Hindi Demo Benchmark Configuration
+# This config runs Phase 1 comprehensive metrics on small demo corpora
+
+# Language code
+lang: hi
+
+# Baseline tokenizer for NSL (Normalized Sequence Length) computation
+# Note: Set to null if baseline not available
+baseline_tokenizer_id: null
+
+# Tokenizers to evaluate
+# Note: gpe_hi_v0 requires training first (see scripts/train_gpe_tokenizer.py)
+# mbert requires transformers library and may have import conflicts
+tokenizers:
+  - gpe_hi_v0
+
+# Corpora to evaluate on
+corpora:
+  - data/hindi/demo/news_small.txt
+  - data/hindi/demo/mixed_small.txt
+
+# Output directory (can be overridden with --output-dir)
+output_dir: scorecards/hi_demo
+
+# Phase 1 metrics enabled (all efficiency + script metrics)
+metrics:
+  efficiency:
+    - fertility
+    - chars_per_token
+    - compression_ratio_chars
+    - compression_ratio_graphemes
+    - normalized_sequence_length
+    - proportion_continued_words
+    - unk_rate
+  script:
+    - grapheme_violation_rate
+    - akshara_integrity_rate
+    - dependent_vowel_split_rate
+    - grapheme_aligned_token_rate
+    - devanagari_token_share
+    - mixed_script_token_share
+

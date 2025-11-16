@@ -1,0 +1,21 @@
+tokenizers:
+  - id: indicbert
+    type: hf
+    model_name: "ai4bharat/indic-bert"
+    display_name: "AI4Bharat IndicBERT"
+
+  - id: mbert
+    type: hf
+    model_name: "bert-base-multilingual-cased"
+    display_name: "mBERT (multilingual BERT)"
+
+  - id: gpe_hi_v0
+    type: custom_gpe
+    model_path: "models/gpe_hi_v0"
+    display_name: "GPE-Hi v0 (grapheme-BPE)"
+
+  - id: sp_hi_baseline
+    type: sentencepiece
+    model_path: "models/sp_hi_baseline"
+    display_name: "SentencePiece Hi Baseline (BPE)"
+

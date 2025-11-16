@@ -1,0 +1,21 @@
+{"text": "यहाँ आपका हिंदी वाक्य जाएगा।", "lang": "hi", "domain": "example", "source": "placeholder", "description": "Basic Hindi sentence example", "tags": ["basic"], "complexity": "low"}
+{"text": "रेलगाड़ी स्टेशन पर आ गई।", "lang": "hi", "domain": "example", "source": "placeholder", "description": "Compound word example (रेलगाड़ी)", "tags": ["compound"], "complexity": "medium"}
+{"text": "भारत एक विविधतापूर्ण देश है।", "lang": "hi", "domain": "news", "source": "example", "description": "News-style sentence with compound word", "tags": ["compound", "news"], "complexity": "medium"}
+{"text": "मैं कल दिल्ली जाऊँगा।", "lang": "hi", "domain": "conversational", "source": "example", "description": "Conversational Hindi with future tense", "tags": ["conversational", "verb"], "complexity": "low"}
+{"text": "कंप्यूटर विज्ञान एक आधुनिक विषय है।", "lang": "hi", "domain": "technical", "source": "example", "description": "Technical text with English loanword", "tags": ["technical", "code-mixed"], "complexity": "medium"}
+{"text": "सूर्योदय के समय आकाश बहुत सुंदर दिखता है।", "lang": "hi", "domain": "literature", "source": "example", "description": "Literary/descriptive text", "tags": ["literature", "descriptive"], "complexity": "medium"}
+{"text": "आज मौसम बहुत अच्छा है।", "lang": "hi", "domain": "conversational", "source": "example", "description": "Simple conversational sentence", "tags": ["conversational"], "complexity": "low"}
+{"text": "विश्वविद्यालय में पढ़ाई करना महत्वपूर्ण है।", "lang": "hi", "domain": "academic", "source": "example", "description": "Academic text with compound word", "tags": ["academic", "compound"], "complexity": "medium"}
+{"text": "मुझे चाय पीनी है।", "lang": "hi", "domain": "conversational", "source": "example", "description": "Simple conversational request", "tags": ["conversational"], "complexity": "low"}
+{"text": "स्वतंत्रता दिवस पर देशभर में उत्सव मनाया जाता है।", "lang": "hi", "domain": "news", "source": "example", "description": "News text with multiple compounds", "tags": ["news", "compound"], "complexity": "high"}
+{"text": "कविता लिखना मेरा शौक है।", "lang": "hi", "domain": "literature", "source": "example", "description": "Personal statement about poetry", "tags": ["literature"], "complexity": "low"}
+{"text": "इंटरनेट के माध्यम से जानकारी प्राप्त करना आसान हो गया है।", "lang": "hi", "domain": "technical", "source": "example", "description": "Technical text with English loanwords", "tags": ["technical", "code-mixed"], "complexity": "high"}
+{"text": "बच्चे खेल रहे हैं।", "lang": "hi", "domain": "conversational", "source": "example", "description": "Simple present continuous sentence", "tags": ["conversational"], "complexity": "low"}
+{"text": "संस्कृति और परंपरा हमारी पहचान है।", "lang": "hi", "domain": "cultural", "source": "example", "description": "Cultural text with compounds", "tags": ["cultural", "compound"], "complexity": "medium"}
+{"text": "मोबाइल फोन आजकल सभी के पास है।", "lang": "hi", "domain": "conversational", "source": "example", "description": "Conversational text with English loanword", "tags": ["conversational", "code-mixed"], "complexity": "medium"}
+{"text": "प्रकृति की सुंदरता अद्भुत है।", "lang": "hi", "domain": "literature", "source": "example", "description": "Literary/poetic text", "tags": ["literature"], "complexity": "medium"}
+{"text": "शिक्षा सबसे महत्वपूर्ण है।", "lang": "hi", "domain": "academic", "source": "example", "description": "Simple academic statement", "tags": ["academic"], "complexity": "low"}
+{"text": "सोशल मीडिया पर लोग अपनी राय व्यक्त करते हैं।", "lang": "hi", "domain": "social", "source": "example", "description": "Social media related text with English loanwords", "tags": ["social", "code-mixed"], "complexity": "medium"}
+{"text": "खाना बनाना एक कला है।", "lang": "hi", "domain": "conversational", "source": "example", "description": "Simple statement about cooking", "tags": ["conversational"], "complexity": "low"}
+{"text": "वैज्ञानिक शोध नए आविष्कार लाते हैं।", "lang": "hi", "domain": "academic", "source": "example", "description": "Academic text about research", "tags": ["academic", "compound"], "complexity": "medium"}
+{"text": "पुस्तकालय में कई किताबें हैं।", "lang": "hi", "domain": "academic", "source": "example", "description": "Simple statement about library", "tags": ["academic"], "complexity": "low"}
