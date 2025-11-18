@@ -283,3 +283,5 @@ For detailed status, see [`docs/research/STATUS_AND_NEXT_STEPS.md`](docs/researc
 ---
 
 **Built with ❤️ for the Indic NLP community**
+
+> **Note**: If you're seeing an outdated README, try refreshing the page or checking the `main` branch directly.
