@@ -9,17 +9,30 @@ grapheme clusters, aksharas, and dependent vowels.
 
 from __future__ import annotations
 
+import sys
+import importlib.util
 from dataclasses import dataclass
+from pathlib import Path
 from typing import List, Tuple
 
-from eval.grapheme_violations import violation_rate
-from tokenizers.cbpe_constraints import (
-    DEVANAGARI_END,
-    DEVANAGARI_START,
-    is_dependent_vowel,
-    is_virama,
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+
+from eval.grapheme_violations import violation_rate, segment_devanagari_graphemes
+
+# Import cbpe_constraints using importlib to avoid huggingface tokenizers conflict
+_cbpe_spec = importlib.util.spec_from_file_location(
+    "tokenizers.cbpe_constraints",
+    project_root / "tokenizers" / "cbpe_constraints.py"
 )
-from tokenizers.grapheme_segmenter import segment_devanagari_graphemes
+_cbpe_module = importlib.util.module_from_spec(_cbpe_spec)
+_cbpe_spec.loader.exec_module(_cbpe_module)
+DEVANAGARI_END = _cbpe_module.DEVANAGARI_END
+DEVANAGARI_START = _cbpe_module.DEVANAGARI_START
+is_dependent_vowel = _cbpe_module.is_dependent_vowel
+is_virama = _cbpe_module.is_virama
 
 
 @dataclass

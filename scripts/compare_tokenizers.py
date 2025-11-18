@@ -243,6 +243,42 @@ def create_tokenizer_from_config(cfg: Dict[str, Any]) -> BaseTokenizer:
             model=model,
             display_name=display_name,
         )
+    elif ttype == "tiktoken":
+        # Lazy import to avoid naming conflicts
+        try:
+            if str(project_root) not in sys.path:
+                sys.path.insert(0, str(project_root))
+            from tokenizers.tiktoken_tokenizer import TiktokenTokenizer as Tiktoken
+        except Exception as e:
+            raise RuntimeError(
+                f"TiktokenTokenizer is not available. "
+                f"Error loading tokenizers.tiktoken_tokenizer: {e}"
+            )
+        encoding_name = cfg.get("encoding_name", "o200k_base")
+        return Tiktoken(
+            tokenizer_id=tid,
+            encoding_name=encoding_name,
+            display_name=display_name,
+        )
+    elif ttype == "ag_bpe":
+        # Lazy import to avoid naming conflicts
+        try:
+            if str(project_root) not in sys.path:
+                sys.path.insert(0, str(project_root))
+            from tokenizers.ag_bpe_tokenizer import AGBPETokenizer as AG
+        except Exception as e:
+            raise RuntimeError(
+                f"AGBPETokenizer is not available. "
+                f"Error loading tokenizers.ag_bpe_tokenizer: {e}"
+            )
+        model_path = Path(cfg["model_path"])
+        if not model_path.is_absolute():
+            model_path = project_root / model_path
+        return AG(
+            tokenizer_id=tid,
+            model_path=model_path,
+            display_name=display_name,
+        )
     elif ttype == "custom_gpe":
         # Lazy import to avoid naming conflicts with HuggingFace tokenizers library
         global GPETokenizer
@@ -252,7 +288,7 @@ def create_tokenizer_from_config(cfg: Dict[str, Any]) -> BaseTokenizer:
                 # First ensure project root is in path
                 if str(project_root) not in sys.path:
                     sys.path.insert(0, str(project_root))
-                
+
                 # Now import - this should work since project_root is in path
                 from tokenizers.gpe_tokenizer import GPETokenizer as GPE
                 GPETokenizer = GPE
@@ -287,7 +323,7 @@ def create_tokenizer_from_config(cfg: Dict[str, Any]) -> BaseTokenizer:
                 # Import using sys.path manipulation to ensure our tokenizers package is found
                 if str(project_root) not in sys.path:
                     sys.path.insert(0, str(project_root))
-                
+
                 from tokenizers.llama_tokenizer import LlamaTokenizer as Llama
                 LlamaTokenizer = Llama
             except Exception as e:
@@ -298,6 +334,25 @@ def create_tokenizer_from_config(cfg: Dict[str, Any]) -> BaseTokenizer:
         model_name = cfg["model_name"]
         token = cfg.get("token") or os.environ.get("HUGGING_FACE_HUB_TOKEN") or os.environ.get("HF_TOKEN")
         return LlamaTokenizer(
+            tokenizer_id=tid,
+            model_name=model_name,
+            display_name=display_name,
+            token=token,
+        )
+    elif ttype == "hf_llama3":
+        # Lazy import to avoid naming conflicts
+        try:
+            if str(project_root) not in sys.path:
+                sys.path.insert(0, str(project_root))
+            from tokenizers.llama3_tokenizer import Llama3Tokenizer as Llama3
+        except Exception as e:
+            raise RuntimeError(
+                f"Llama3Tokenizer is not available. "
+                f"Error loading tokenizers.llama3_tokenizer: {e}"
+            )
+        model_name = cfg.get("model_name", "meta-llama/Meta-Llama-3-8B")
+        token = cfg.get("token") or os.environ.get("HUGGING_FACE_HUB_TOKEN") or os.environ.get("HF_TOKEN")
+        return Llama3(
             tokenizer_id=tid,
             model_name=model_name,
             display_name=display_name,

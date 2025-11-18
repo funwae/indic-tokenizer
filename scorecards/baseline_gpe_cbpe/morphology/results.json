@@ -1,0 +1,10 @@
+{
+  "gpe_cbpe_hi_v1": {
+    "boundary_precision": 0.37991415453025357,
+    "boundary_recall": 0.6500767195767196,
+    "boundary_f1": 0.46939886187880403,
+    "token_match_rate": 0.20186154741128562,
+    "morpheme_coverage_rate": 0.25482912332838037,
+    "avg_tokens_per_morpheme": 1.277117384843982
+  }
+}

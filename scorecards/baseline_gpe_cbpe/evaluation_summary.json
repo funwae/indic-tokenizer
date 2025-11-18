@@ -1,0 +1,22 @@
+{
+  "tokenizer_id": "gpe_cbpe_hi_v1",
+  "timestamp": "2025-11-16T19:25:20.353232",
+  "evaluations": {
+    "efficiency_script": {
+      "status": "completed",
+      "results_file": "scorecards/baseline_gpe_cbpe/efficiency_script_results.json"
+    },
+    "parity": {
+      "status": "completed",
+      "results_file": "scorecards/baseline_gpe_cbpe/parity/results.json"
+    },
+    "morphology": {
+      "status": "completed",
+      "results_file": "scorecards/baseline_gpe_cbpe/morphology/results.json"
+    },
+    "tiny_lm": {
+      "status": "skipped",
+      "reason": "user_requested"
+    }
+  }
+}

@@ -1,26 +1,24 @@
-# tokenizers/llama_tokenizer.py
+# tokenizers/tiktoken_tokenizer.py
 # -*- coding: utf-8 -*-
 """
-Llama-3 tokenizer adapter for Indic Tokenization Lab.
+Tiktoken tokenizer adapter for Indic Tokenization Lab.
 
-Loads Llama-3 tokenizers via HuggingFace transformers and implements
-the BaseTokenizer interface for use with compare_tokenizers.py.
+Supports OpenAI GPT-4o and other tiktoken-based tokenizers.
 """
 
 from __future__ import annotations
 
 from typing import List, Optional
 
-# Import transformers BEFORE our tokenizers package to avoid naming conflict
 try:
-    from transformers import AutoTokenizer
+    import tiktoken
 except ImportError:
-    AutoTokenizer = None  # type: ignore
+    tiktoken = None  # type: ignore
 
 
-class LlamaTokenizer:
+class TiktokenTokenizer:
     """
-    Llama-3 tokenizer adapter using HuggingFace transformers.
+    Tiktoken tokenizer adapter for OpenAI models.
 
     Implements the BaseTokenizer interface for compatibility with
     compare_tokenizers.py.
@@ -29,53 +27,37 @@ class LlamaTokenizer:
     def __init__(
         self,
         tokenizer_id: str,
-        model_name: str,
+        encoding_name: str = "o200k_base",
         display_name: Optional[str] = None,
-        token: Optional[str] = None,
     ):
         """
-        Initialize Llama-3 tokenizer from HuggingFace model.
+        Initialize Tiktoken tokenizer.
 
         Parameters
         ----------
         tokenizer_id : str
             Unique identifier for this tokenizer.
-        model_name : str
-            HuggingFace model name (e.g., "meta-llama/Llama-3.1-8B-Instruct").
+        encoding_name : str
+            Tiktoken encoding name (default: "o200k_base" for GPT-4o).
         display_name : str, optional
             Human-readable name. Defaults to tokenizer_id.
-        token : str, optional
-            HuggingFace authentication token for gated models.
         """
-        if AutoTokenizer is None:
+        if tiktoken is None:
             raise RuntimeError(
-                "transformers library is not installed. "
-                "Install with: pip install transformers"
+                "tiktoken library is not installed. "
+                "Install with: pip install tiktoken"
             )
 
         self.tokenizer_id = tokenizer_id
         self.display_name = display_name or tokenizer_id
-        self.model_name = model_name
+        self.encoding_name = encoding_name
 
-        # Get token from environment if not provided
-        if token is None:
-            import os
-            token = os.environ.get("HUGGING_FACE_HUB_TOKEN") or os.environ.get("HF_TOKEN")
-
-        # Load tokenizer
+        # Get encoding
         try:
-            if token:
-                self._tokenizer = AutoTokenizer.from_pretrained(
-                    model_name,
-                    token=token,
-                )
-            else:
-                # Will use cached token from huggingface-cli login if available
-                self._tokenizer = AutoTokenizer.from_pretrained(model_name)
+            self._enc = tiktoken.get_encoding(encoding_name)
         except Exception as e:
             raise RuntimeError(
-                f"Failed to load Llama tokenizer {model_name}: {e}. "
-                "Make sure you have access to the model and are authenticated."
+                f"Failed to load tiktoken encoding '{encoding_name}': {e}"
             ) from e
 
     def tokenize(self, text: str) -> List[str]:
@@ -92,7 +74,19 @@ class LlamaTokenizer:
         List[str]
             List of token strings.
         """
-        return self._tokenizer.tokenize(text)
+        # Tiktoken exposes only IDs; we decode each token ID to get the string representation
+        token_ids = self.encode(text)
+        tokens: List[str] = []
+        for tid in token_ids:
+            try:
+                # Decode single token
+                token_bytes = self._enc.decode_single_token_bytes(tid)
+                token_str = token_bytes.decode('utf-8', errors='replace')
+                tokens.append(token_str)
+            except Exception:
+                # Fallback: use the token ID as string representation
+                tokens.append(f"<token_{tid}>")
+        return tokens
 
     def encode(self, text: str) -> List[int]:
         """
@@ -108,7 +102,7 @@ class LlamaTokenizer:
         List[int]
             List of token IDs.
         """
-        return self._tokenizer.encode(text, add_special_tokens=False)
+        return self._enc.encode(text)
 
     def decode(self, ids: List[int]) -> str:
         """
@@ -124,7 +118,7 @@ class LlamaTokenizer:
         str
             Decoded text.
         """
-        return self._tokenizer.decode(ids, skip_special_tokens=True)
+        return self._enc.decode(ids)
 
     def stats(self, text: str):
         """

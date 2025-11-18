@@ -108,49 +108,125 @@ Phase 1 implements efficiency and script adequacy metrics that can be computed i
 
 ---
 
-## Phase 2: Fairness & Morphology Metrics (Planned)
+## Phase 2: Fairness & Morphology Metrics
 
-### 3. Fairness Metrics (Phase 2)
+### 3. Fairness Metrics
 
-**Status:** Deferred - requires parallel corpora and baseline tokenizer setup.
+**Status:** Implemented - requires parallel Hindi-English corpus.
 
-#### 3.1 Tokenization Parity
+#### 3.1 Tokenization Parity (TP)
 
 - **Definition:** `|t(s_A)| / |t(s_B)|` for same content in languages A and B.
+- **Implementation:** `compute_tp()` in `eval/metrics/fairness.py`
+- **Returns:** Mean, median, p10, p90 statistics
 - **Interpretation:** TP ≈ 1 for fairness.
 - **References:** From Petrov et al. and GPE paper.
+- **Usage:** `scripts/run_parity_benchmark.py`
 
 #### 3.2 Tokenization Premium
 
 - **Definition:** `E[|t(s_lang)|] / E[|t(s_en)|]` - how many more tokens a language pays vs English.
+- **Implementation:** `tokenization_premium()` in `eval/metrics/fairness.py`
 - **Interpretation:** Lower premium is better (fairer tokenization).
 - **References:** From Petrov et al. - ties directly to cost, latency, and context length.
 
 #### 3.3 Compression Ratio Disparity
 
 - **Definition:** `ΔCR(lang1, lang2)` - difference in compression ratios.
+- **Implementation:** `compression_ratio_disparity()` in `eval/metrics/fairness.py`
 - **Interpretation:** Lower disparity is better.
 - **Goal:** Minimize disparity between Hindi and English while maintaining good Hindi morphology.
 
-### 4. Morphology Metrics (Phase 2)
+#### 3.4 NSL Cross-Language
 
-**Status:** Deferred - requires MorphTok or similar annotated morphology dataset.
+- **Definition:** `E[|t(s)|] / E[|t_ref(s)|]` - normalized sequence length vs baseline per language.
+- **Implementation:** `compute_nsl_cross()` in `eval/metrics/fairness.py`
+- **Usage:** Compare tokenizer efficiency across languages.
 
-#### 4.1 Morphology Alignment (Hindi)
+#### 3.5 Token Tax
 
-- **Definition:** When morphology annotations are available:
-  - Boundary precision/recall/F1 over morpheme boundaries
-  - % of tokens that match exactly one morpheme
+- **Definition:** Token premium for Hindi vs English relative to baseline tokenizer.
+- **Implementation:** `compute_token_tax()` in `eval/metrics/fairness.py`
+- **Returns:** premium_hi, premium_en, tax_ratio
+- **Usage:** Measure unfair tokenization costs.
+
+### 4. Morphology Metrics
+
+**Status:** Implemented - uses morphology-annotated Hindi dataset.
+
+#### 4.1 Boundary Precision/Recall/F1
+
+- **Definition:** Precision, recall, and F1 score for token boundaries aligning with morpheme boundaries.
+- **Implementation:** `compute_boundary_f1()` in `eval/metrics/morphology.py`
+- **Returns:** Dictionary with 'precision', 'recall', 'f1' keys
 - **References:** Inspired by EvalTok and MorphTok.
+- **Usage:** `scripts/run_morphology_eval.py`
 
-#### 4.2 Sandhi Alignment (Sanskrit)
+#### 4.2 Morpheme Alignment
+
+- **Definition:**
+  - % of tokens that exactly match a gold morpheme span
+  - % of morphemes covered by a single token
+- **Implementation:** `compute_morpheme_alignment()` in `eval/metrics/morphology.py`
+- **Returns:** Dictionary with 'token_match_rate' and 'morpheme_coverage_rate'
+- **Usage:** Measure morphological awareness of tokenizers.
+
+#### 4.3 Morphological Fragmentation
+
+- **Definition:** Average number of tokens per morpheme (similar to fertility but morpheme-level).
+- **Implementation:** `compute_morph_fragmentation()` in `eval/metrics/morphology.py`
+- **Returns:** Float (average tokens per morpheme)
+- **Interpretation:** Lower is better (less fragmentation).
+
+#### 4.4 Sandhi Alignment (Sanskrit) - Planned
 
 - **Definition:** For sandhi benchmark corpora:
   - % of sandhi splits that align with token boundaries
   - Error analysis by sandhi type (vowel vs consonant vs visarga)
+- **Status:** Planned for future implementation
 - **References:** LREC sandhi benchmark tools.
 
+### 5. Downstream Proxy Metrics
+
+**Status:** Implemented - tiny language model perplexity evaluation.
+
+#### 5.1 Tiny LM Perplexity
+
+- **Definition:** Perplexity of a tiny decoder-only transformer LM (~1-3M params) trained with different tokenizers.
+- **Implementation:** `scripts/train_tiny_lm.py` and `scripts/eval_tiny_lm.py`
+- **Model Architecture:**
+  - d_model=256, n_heads=4, n_layers=2
+  - max_seq_len=256
+  - GPT-2 style decoder-only transformer
+- **Usage:** Train models with different tokenizers, compare perplexity
+- **Interpretation:** Lower perplexity indicates better tokenization for downstream tasks
+- **Note:** Results are indicative, not SOTA - demonstrates directionality
+
 ---
+
+## GPE+CBPE Hindi v1 Tokenizer
+
+**Status:** Implemented and registered.
+
+The GPE+CBPE Hindi v1 tokenizer (`gpe_cbpe_hi_v1`) is a research-grade tokenizer that combines:
+
+- **Grapheme Pair Encoding (GPE)**: BPE applied over Unicode grapheme clusters instead of bytes/codepoints
+- **Constrained BPE (CBPE)**: Script-aware constraints preventing illegal merges (e.g., splitting dependent vowels)
+
+**Training:**
+- Corpus: 300k-500k lines of Hindi text (IndicNLP or similar)
+- Vocabulary size: 32,000
+- Constraints: Devanagari combining marks (dependent vowels, virama, nukta, etc.)
+
+**Expected Performance:**
+- Fertility/NSL: ~1-3% better than IndicBERT, clearly better than mBERT
+- Grapheme violation: ~0%
+- Akshara integrity: ≥ IndicBERT
+- Dependent-vowel split rate: Lower than both mBERT and IndicBERT
+
+**References:**
+- GPE paper: "Grapheme Pair Encoding for Indic Languages"
+- MorphTok: "MorphTok: Morphologically Grounded Tokenization for Indian Languages"
 
 ## Legacy Metrics (Backward Compatibility)
 

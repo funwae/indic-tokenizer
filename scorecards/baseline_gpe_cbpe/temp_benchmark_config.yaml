@@ -1,0 +1,13 @@
+lang: hi
+baseline_tokenizer_id: gpe_cbpe_hi_v1
+tokenizers:
+  - id: gpe_cbpe_hi_v1
+  - id: gpt4o_tok
+  - id: llama3_8b_tok
+  - id: mbert
+  - id: indicbert
+corpora:
+  - path: data/hindi/demo/news_small.txt
+    name: Hindi News (Small)
+  - path: data/hindi/demo/mixed_small.txt
+    name: Hindi Mixed (Small)

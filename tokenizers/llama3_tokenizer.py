@@ -1,4 +1,4 @@
-# tokenizers/llama_tokenizer.py
+# tokenizers/llama3_tokenizer.py
 # -*- coding: utf-8 -*-
 """
 Llama-3 tokenizer adapter for Indic Tokenization Lab.
@@ -18,7 +18,7 @@ except ImportError:
     AutoTokenizer = None  # type: ignore
 
 
-class LlamaTokenizer:
+class Llama3Tokenizer:
     """
     Llama-3 tokenizer adapter using HuggingFace transformers.
 
@@ -29,7 +29,7 @@ class LlamaTokenizer:
     def __init__(
         self,
         tokenizer_id: str,
-        model_name: str,
+        model_name: str = "meta-llama/Meta-Llama-3-8B",
         display_name: Optional[str] = None,
         token: Optional[str] = None,
     ):
@@ -41,7 +41,7 @@ class LlamaTokenizer:
         tokenizer_id : str
             Unique identifier for this tokenizer.
         model_name : str
-            HuggingFace model name (e.g., "meta-llama/Llama-3.1-8B-Instruct").
+            HuggingFace model name (e.g., "meta-llama/Meta-Llama-3-8B").
         display_name : str, optional
             Human-readable name. Defaults to tokenizer_id.
         token : str, optional
@@ -68,13 +68,17 @@ class LlamaTokenizer:
                 self._tokenizer = AutoTokenizer.from_pretrained(
                     model_name,
                     token=token,
+                    use_fast=True,
                 )
             else:
                 # Will use cached token from huggingface-cli login if available
-                self._tokenizer = AutoTokenizer.from_pretrained(model_name)
+                self._tokenizer = AutoTokenizer.from_pretrained(
+                    model_name,
+                    use_fast=True,
+                )
         except Exception as e:
             raise RuntimeError(
-                f"Failed to load Llama tokenizer {model_name}: {e}. "
+                f"Failed to load Llama-3 tokenizer {model_name}: {e}. "
                 "Make sure you have access to the model and are authenticated."
             ) from e
 

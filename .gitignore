@@ -46,14 +46,15 @@ htmlcov/
 .tox/
 
 # Data (large files)
-data/*.txt
-data/*.jsonl
-data/*.json
+data/**/*.txt
+data/**/*.jsonl
+data/**/*.json
 !data/README.md
 !data/*/README.md
 !data/*/curated_examples.jsonl
 !data/*/eval_sets/*.txt
 !data/*/eval_sets/README.md
+!data/*/morph_gold/*.tsv
 
 # Models and checkpoints
 *.bin
@@ -72,6 +73,9 @@ logs/
 # Environment variables
 .env
 .env.local
+
+# Authentication test files (may contain tokens)
+AUTHENTICATION_TEST_RESULTS.md
 
 # Playground build
 playground/.next/

@@ -1,0 +1,154 @@
+{
+  "config": "configs/hi_demo.yaml",
+  "lang": "hi",
+  "baseline_tokenizer": null,
+  "timestamp": "2025-11-17T19:56:29.680838",
+  "tokenizer_names": {
+    "indicbert": "AI4Bharat IndicBERT",
+    "mbert": "mBERT (multilingual BERT)"
+  },
+  "corpora": {
+    "data/hindi/demo/news_small.txt": {
+      "path": "data/hindi/demo/news_small.txt",
+      "num_texts": 10
+    },
+    "data/hindi/demo/mixed_small.txt": {
+      "path": "data/hindi/demo/mixed_small.txt",
+      "num_texts": 10
+    }
+  },
+  "results": {
+    "news_small": {
+      "indicbert": {
+        "efficiency": {
+          "avg_fertility": 1.6055555555555556,
+          "avg_chars_per_token": 3.0290392940392943,
+          "avg_compression_ratio_chars": 3.0290392940392943,
+          "avg_compression_ratio_graphemes": 1.9735969585969584,
+          "avg_normalized_sequence_length": null,
+          "avg_proportion_continued_words": 0.24603174603174605,
+          "avg_unk_rate": 0.0,
+          "baseline_tokenizer_id": null
+        },
+        "script": {
+          "avg_grapheme_violation_rate": 0.2575441225441225,
+          "avg_akshara_integrity_rate": 0.34376616031027796,
+          "total_akshara_splits": 93,
+          "avg_dependent_vowel_split_rate": 0.0,
+          "avg_grapheme_aligned_token_rate": 0.43012099012099014,
+          "avg_devanagari_token_share": 1.0,
+          "avg_mixed_script_token_share": 0.0,
+          "akshara_segmentation_version": "v0_heuristic"
+        },
+        "summary": {
+          "total_tokens": 118,
+          "total_words": 74,
+          "total_chars": 355,
+          "total_graphemes": 231,
+          "total_aksharas": 142,
+          "num_texts": 10
+        },
+        "fairness": null,
+        "morphology": null
+      },
+      "mbert": {
+        "efficiency": {
+          "avg_fertility": 1.6888888888888889,
+          "avg_chars_per_token": 2.879691974691975,
+          "avg_compression_ratio_chars": 2.879691974691975,
+          "avg_compression_ratio_graphemes": 1.8768056943056943,
+          "avg_normalized_sequence_length": null,
+          "avg_proportion_continued_words": 0.4119047619047619,
+          "avg_unk_rate": 0.0,
+          "baseline_tokenizer_id": null
+        },
+        "script": {
+          "avg_grapheme_violation_rate": 0.1524242424242424,
+          "avg_akshara_integrity_rate": 0.9828571428571429,
+          "total_akshara_splits": 2,
+          "avg_dependent_vowel_split_rate": 0.15116161616161616,
+          "avg_grapheme_aligned_token_rate": 0.6757738095238095,
+          "avg_devanagari_token_share": 1.0,
+          "avg_mixed_script_token_share": 0.0,
+          "akshara_segmentation_version": "v0_heuristic"
+        },
+        "summary": {
+          "total_tokens": 124,
+          "total_words": 74,
+          "total_chars": 355,
+          "total_graphemes": 231,
+          "total_aksharas": 142,
+          "num_texts": 10
+        },
+        "fairness": null,
+        "morphology": null
+      }
+    },
+    "mixed_small": {
+      "indicbert": {
+        "efficiency": {
+          "avg_fertility": 1.3866666666666667,
+          "avg_chars_per_token": 3.7875,
+          "avg_compression_ratio_chars": 3.7875,
+          "avg_compression_ratio_graphemes": 3.305357142857143,
+          "avg_normalized_sequence_length": null,
+          "avg_proportion_continued_words": 0.2675,
+          "avg_unk_rate": 0.0,
+          "baseline_tokenizer_id": null
+        },
+        "script": {
+          "avg_grapheme_violation_rate": 0.1181818181818182,
+          "avg_akshara_integrity_rate": 0.47055555555555556,
+          "total_akshara_splits": 29,
+          "avg_dependent_vowel_split_rate": 0.0,
+          "avg_grapheme_aligned_token_rate": 0.4904761904761905,
+          "avg_devanagari_token_share": 0.6619047619047619,
+          "avg_mixed_script_token_share": 0.0,
+          "akshara_segmentation_version": "v0_heuristic"
+        },
+        "summary": {
+          "total_tokens": 74,
+          "total_words": 55,
+          "total_chars": 277,
+          "total_graphemes": 242,
+          "total_aksharas": 51,
+          "num_texts": 10
+        },
+        "fairness": null,
+        "morphology": null
+      },
+      "mbert": {
+        "efficiency": {
+          "avg_fertility": 1.5225,
+          "avg_chars_per_token": 3.535613275613276,
+          "avg_compression_ratio_chars": 3.535613275613276,
+          "avg_compression_ratio_graphemes": 3.107738095238095,
+          "avg_normalized_sequence_length": null,
+          "avg_proportion_continued_words": 0.31,
+          "avg_unk_rate": 0.0,
+          "baseline_tokenizer_id": null
+        },
+        "script": {
+          "avg_grapheme_violation_rate": 0.09996031746031746,
+          "avg_akshara_integrity_rate": 0.9666666666666666,
+          "total_akshara_splits": 2,
+          "avg_dependent_vowel_split_rate": 0.2033333333333333,
+          "avg_grapheme_aligned_token_rate": 0.47831168831168835,
+          "avg_devanagari_token_share": 0.687128427128427,
+          "avg_mixed_script_token_share": 0.0,
+          "akshara_segmentation_version": "v0_heuristic"
+        },
+        "summary": {
+          "total_tokens": 81,
+          "total_words": 55,
+          "total_chars": 277,
+          "total_graphemes": 242,
+          "total_aksharas": 51,
+          "num_texts": 10
+        },
+        "fairness": null,
+        "morphology": null
+      }
+    }
+  }
+}

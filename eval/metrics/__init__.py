@@ -9,7 +9,14 @@ Phase 2 (Future): Fairness + Morphology metrics
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
 from typing import List, Optional
+
+# Add project root to path for imports
+project_root = Path(__file__).parent.parent.parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
 
 from eval.metrics.efficiency import EfficiencyMetrics, evaluate_efficiency
 from eval.metrics.script import ScriptMetrics, evaluate_script
@@ -19,12 +26,19 @@ from eval.metrics.fairness import (
     tokenization_parity,
     tokenization_premium,
     compression_ratio_disparity,
+    compute_tp,
+    compute_nsl_cross,
+    compute_token_tax,
 )
 from eval.metrics.morphology import (
     MorphologyMetrics,
     evaluate_morphology,
     boundary_precision_recall_f1,
     morpheme_aligned_token_rate,
+    compute_boundary_f1,
+    compute_morpheme_alignment,
+    compute_morph_fragmentation,
+    load_morphology_tsv,
 )
 
 
@@ -42,6 +56,10 @@ __all__ = [
     "compression_ratio_disparity",
     "boundary_precision_recall_f1",
     "morpheme_aligned_token_rate",
+    "compute_boundary_f1",
+    "compute_morpheme_alignment",
+    "compute_morph_fragmentation",
+    "load_morphology_tsv",
 ]
 
 
@@ -96,7 +114,7 @@ def evaluate_comprehensive(
     """
     # Count basic statistics
     from eval.fertility import split_words_script_aware
-    from tokenizers.grapheme_segmenter import segment_devanagari_graphemes
+    from eval.grapheme_violations import segment_devanagari_graphemes
     from eval.metrics.script import segment_aksharas
 
     words = split_words_script_aware(text)

@@ -31,6 +31,31 @@ DEPENDENT_VOWEL_END = 0x094C
 # Virama (halant) U+094D.
 VIRAMA = "\u094D"
 
+# Nukta U+093C
+NUKTA = "\u093C"
+
+# Combining marks: U+0900–U+0903 (various signs), U+0951–U+0954 (various marks)
+COMBINING_MARK_RANGES = [
+    (0x0900, 0x0903),  # Devanagari sign Inverted Candrabindu, Candrabindu, Anusvara, Visarga
+    (0x0951, 0x0954),  # Devanagari stress signs and other marks
+]
+
+# Set of all Devanagari combining marks (dependent vowels, virama, nukta, other combining marks)
+DEVANAGARI_COMBINING = set()
+
+# Add dependent vowels
+for cp in range(DEPENDENT_VOWEL_START, DEPENDENT_VOWEL_END + 1):
+    DEVANAGARI_COMBINING.add(cp)
+
+# Add virama and nukta
+DEVANAGARI_COMBINING.add(ord(VIRAMA))
+DEVANAGARI_COMBINING.add(ord(NUKTA))
+
+# Add other combining marks
+for start, end in COMBINING_MARK_RANGES:
+    for cp in range(start, end + 1):
+        DEVANAGARI_COMBINING.add(cp)
+
 def is_devanagari_char(ch: str) -> bool:
     """Return True if ch is in the basic Devanagari block."""
     if not ch:
@@ -49,6 +74,25 @@ def is_virama(ch: str) -> bool:
     """Return True if ch is the Devanagari sign virama (halant)."""
     return ch == VIRAMA
 
+def is_nukta(ch: str) -> bool:
+    """Return True if ch is the Devanagari sign nukta."""
+    return ch == NUKTA
+
+def is_devanagari_combining(ch: str) -> bool:
+    """
+    Return True if ch is a Devanagari combining mark.
+
+    Includes:
+    - Dependent vowel signs (matras): U+093E–U+094C
+    - Virama (halant): U+094D
+    - Nukta: U+093C
+    - Other combining marks: U+0900–U+0903, U+0951–U+0954
+    """
+    if not ch:
+        return False
+    cp = ord(ch)
+    return cp in DEVANAGARI_COMBINING
+
 # ---------------------------------------------------------------------------
 # CBPE merge constraints
 # ---------------------------------------------------------------------------
@@ -60,38 +104,46 @@ def cbpe_merge_allowed(left: str, right: str) -> bool:
     Both `left` and `right` are assumed to be current BPE *symbols*,
     i.e., substrings over Unicode characters, not full tokens yet.
 
-    This is a *minimal* constraint set:
+    MorphTok-style constraints for Devanagari:
 
-    1. Do NOT allow merges that would produce a symbol starting with a
-       dependent vowel sign (matra) or virama. These are combining marks
-       and should not appear at the start of a standalone symbol.
+    1. Do NOT allow merges where `right` begins with a combining mark:
+       - Dependent vowel signs (matras): U+093E–U+094C
+       - Virama (halant): U+094D
+       - Nukta: U+093C
+       - Other combining marks: U+0900–U+0903, U+0951–U+0954
 
-       (CBPE idea: avoid tokens that begin with dependent vowels.)
+    2. Do NOT allow merges that would create a symbol starting with a
+       combining mark (the merged result should not start with one).
 
-    2. Allow merges that attach a dependent vowel to a preceding consonant
-       or cluster (the usual case in Devanagari), as long as the *resulting*
-       symbol does NOT start with a dependent vowel/virama.
+    3. Conservative approach: Better to skip some legitimate merges than
+       to create tokens that mutilate script structure.
 
-    You can extend this function with more rules later (e.g., grapheme
-    cluster checks, morphology boundaries).
+    Examples of disallowed merges:
+    - ("क", "ि") - would create token starting with dependent vowel
+    - ("त", "्") - would create token starting with virama
+    - ("क्", "्ष") - if it would split expected aksharas
+
+    Examples of allowed merges (conservative):
+    - ("क", "ा") → "का" - only when it's the intended akshara
     """
 
     if not left or not right:
         # Degenerate; let caller decide, but generally BPE shouldn't see empty symbols.
         return False
 
-    merged = left + right
-    first_char = merged[0]
-
-    # If the merged symbol is Devanagari and begins with a combining mark
-    # (dependent vowel or virama), we disallow it.
-    if is_devanagari_char(first_char) and (is_dependent_vowel(first_char) or is_virama(first_char)):
+    # Check if right begins with a combining mark - disallow such merges
+    if right and is_devanagari_combining(right[0]):
         return False
 
-    # Future extension examples:
-    #  - You might disallow merges that create *standalone* dependent vowels,
-    #    e.g., if merged is a single dependent vowel with no base.
-    #  - You might inspect the *last* char to avoid certain illegal endings.
+    # Check if the merged result would start with a combining mark - disallow
+    merged = left + right
+    if merged and is_devanagari_char(merged[0]) and is_devanagari_combining(merged[0]):
+        return False
+
+    # Additional conservative check: if right is a single combining mark, disallow
+    # (combining marks should not be standalone tokens)
+    if len(right) == 1 and is_devanagari_combining(right):
+        return False
 
     return True
 

@@ -17,7 +17,7 @@ tokenizers:
   - id: gpe_cbpe_hi_v1
     type: custom_gpe
     model_path: "models/gpe_cbpe_hi_v1"
-    display_name: "GPE+CBPE Hindi v1 (research-grade)"
+    display_name: "GPE+CBPE Hindi v1 (Devanagari-aware)"
 
   - id: sp_hi_baseline
     type: sentencepiece
@@ -34,8 +34,23 @@ tokenizers:
     model: "gpt-4o-mini"
     display_name: "OpenAI GPT-4o-mini"
 
+  - id: gpt4o_tok
+    type: tiktoken
+    encoding_name: "o200k_base"
+    display_name: "GPT-4o tokenizer (tiktoken o200k_base)"
+
   - id: llama3_8b
     type: llama
     model_name: "meta-llama/Llama-3.1-8B-Instruct"
     display_name: "Llama 3.1 8B"
+
+  - id: llama3_8b_tok
+    type: hf_llama3
+    model_name: "meta-llama/Meta-Llama-3-8B"
+    display_name: "Llama-3 8B tokenizer"
+
+  - id: ag_bpe_hi_v1
+    type: ag_bpe
+    model_path: "models/ag_bpe_hi_v1"
+    display_name: "Attention-Guided BPE Hindi v1"
 

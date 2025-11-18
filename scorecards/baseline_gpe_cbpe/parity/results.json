@@ -1,0 +1,36 @@
+{
+  "gpe_cbpe_hi_v1": {
+    "tokenization_parity": {
+      "mean": 0.0,
+      "median": 0.0,
+      "p10": 0.0,
+      "p90": 0.0
+    },
+    "nsl_hi_vs_baseline": 0.0,
+    "nsl_en_vs_baseline": 0.0,
+    "token_tax": {
+      "premium_hi": 0.0,
+      "premium_en": 0.0,
+      "tax_ratio": 0.0
+    },
+    "avg_compression_ratio_hi": 0.0,
+    "avg_compression_ratio_en": 0.0
+  },
+  "gpt4o_tok": {
+    "tokenization_parity": {
+      "mean": 0.0,
+      "median": 0.0,
+      "p10": 0.0,
+      "p90": 0.0
+    },
+    "nsl_hi_vs_baseline": 0.0,
+    "nsl_en_vs_baseline": 0.0,
+    "token_tax": {
+      "premium_hi": 0.0,
+      "premium_en": 0.0,
+      "tax_ratio": 0.0
+    },
+    "avg_compression_ratio_hi": 0.0,
+    "avg_compression_ratio_en": 0.0
+  }
+}

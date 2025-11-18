@@ -8,11 +8,27 @@ Measures sequence-level efficiency: compression, fragmentation, and token econom
 
 from __future__ import annotations
 
+import sys
 from dataclasses import dataclass
+from pathlib import Path
 from typing import List, Optional
 
+# Add project root to path for imports
+project_root = Path(__file__).parent.parent.parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+
 from eval.fertility import calculate_chars_per_token, calculate_fertility
-from tokenizers.grapheme_segmenter import segment_devanagari_graphemes
+
+# Import grapheme_segmenter using importlib to avoid huggingface tokenizers conflict
+import importlib.util
+_grapheme_seg_spec = importlib.util.spec_from_file_location(
+    "tokenizers.grapheme_segmenter",
+    project_root / "tokenizers" / "grapheme_segmenter.py"
+)
+_grapheme_seg_module = importlib.util.module_from_spec(_grapheme_seg_spec)
+_grapheme_seg_spec.loader.exec_module(_grapheme_seg_module)
+segment_devanagari_graphemes = _grapheme_seg_module.segment_devanagari_graphemes
 
 
 @dataclass

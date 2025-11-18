@@ -382,7 +382,27 @@ def parse_args() -> argparse.Namespace:
         default="</w>",
         help="Word-end sentinel symbol to append to each word.",
     )
-    return parser.parse_args()
+    parser.add_argument(
+        "--profile",
+        type=str,
+        default=None,
+        help="Training profile preset (e.g., 'hi_v1' for Hindi v1 settings).",
+    )
+
+    args = parser.parse_args()
+
+    # Apply profile presets
+    if args.profile == "hi_v1":
+        # Hindi v1 profile: optimized for Devanagari tokenization
+        if args.vocab_size == 32000:  # Only override if not explicitly set
+            args.vocab_size = 32000
+        if args.min_pair_frequency == 2:  # Only override if not explicitly set
+            args.min_pair_frequency = 2
+        args.dev_only = True  # Force dev-only for Hindi
+        if args.max_lines is None:
+            args.max_lines = 500000  # Default to 500k lines for hi_v1
+
+    return args
 
 def main() -> None:
     args = parse_args()

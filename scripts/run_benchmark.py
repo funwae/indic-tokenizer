@@ -385,7 +385,8 @@ def main():
         json.dump(output_data, f, indent=2, ensure_ascii=False)
 
     # Generate and write Markdown summary
-    from eval.metrics import generate_scorecard, export_scorecard
+    # Note: generate_scorecard and export_scorecard are in eval/metrics.py (legacy)
+    # For now, we'll generate markdown directly below
 
     # Create scorecards for each corpus/tokenizer combination
     scorecards_dict = {}
